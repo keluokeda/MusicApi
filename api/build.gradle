@@ -1,0 +1,47 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+    id 'kotlin-kapt'
+    id 'maven-publish'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+//afterEvaluate {
+//    publishing {
+//        publications {
+//            release(MavenPublication) {
+//                from components.release
+//                groupId = 'com.example.mylibrary' //groupId 随便取，jitpack不会使用
+//                artifactId = 'test'  //test随便取,jitpack不会使用
+//                version = '1.0.1' //随便取，jitpack不会使用
+//            }
+//        }
+//    }
+//}
+
+
+//afterEvaluate {
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'com.ke.music'
+            artifactId = 'music'
+            version = '0.1'
+
+            from components.java
+        }
+    }
+}
+//}
+
+
+dependencies {
+    api 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation "com.squareup.moshi:moshi-kotlin:1.14.0"
+    implementation("com.squareup.moshi:moshi:1.14.0")
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.14.0"
+}
