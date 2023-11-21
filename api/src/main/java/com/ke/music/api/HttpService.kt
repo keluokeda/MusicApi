@@ -41,7 +41,7 @@ interface HttpService {
      */
     @GET("login/status")
     suspend fun loginStatus(
-        @Header("Cookie") cookie: String? = null,
+        @Query("cookie") cookie: String? = null,
     ): LoginStatusResponse
 
     /**
@@ -81,7 +81,7 @@ interface HttpService {
     suspend fun getUserPlaylistList(
         @Query("uid") userId: Long,
         @Query("limit") limit: Int = 1000,
-        @Header("Cookie") cookie: String? = null,
+        @Query("cookie") cookie: String? = null,
     ): UserPlaylistResponse
 
     /**
