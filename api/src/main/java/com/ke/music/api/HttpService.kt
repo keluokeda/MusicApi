@@ -32,6 +32,7 @@ import com.ke.music.api.response.UserDetailResponse
 import com.ke.music.api.response.UserFollowsResponse
 import com.ke.music.api.response.UserPlaylistResponse
 import retrofit2.http.GET
+import retrofit2.http.Header
 import retrofit2.http.Query
 
 interface HttpService {
@@ -39,7 +40,9 @@ interface HttpService {
      * 检查登录状态
      */
     @GET("login/status")
-    suspend fun loginStatus(): LoginStatusResponse
+    suspend fun loginStatus(
+        @Header("Cookie") cookie: String? = null,
+        ): LoginStatusResponse
 
     /**
      * 生成登录二维码key
