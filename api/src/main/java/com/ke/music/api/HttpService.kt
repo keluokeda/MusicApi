@@ -7,6 +7,7 @@ import com.ke.music.api.response.ArtistDescResponse
 import com.ke.music.api.response.ArtistListResponse
 import com.ke.music.api.response.ArtistMvResponse
 import com.ke.music.api.response.ArtistsResponse
+import com.ke.music.api.response.CheckLoginResponse
 import com.ke.music.api.response.CodeResponse
 import com.ke.music.api.response.CommentsResponse
 import com.ke.music.api.response.HighQualityPlaylistsResponse
@@ -51,7 +52,7 @@ interface HttpService {
      */
     @GET("login/qr/create")
     suspend fun createQRUrl(
-        @Query("key") key: String
+        @Query("key") key: String,
     ): LoginQRCreateResponse
 
     /**
@@ -59,15 +60,15 @@ interface HttpService {
      */
     @GET("login/qr/check")
     suspend fun checkLoginByKey(
-        @Query("key") key: String
-    ): CodeResponse
+        @Query("key") key: String,
+    ): CheckLoginResponse
 
     /**
      * 获取私信消息
      */
     @GET("msg/private")
     suspend fun getPrivateMessageList(
-        @Query("limit") limit: Int = 1000
+        @Query("limit") limit: Int = 1000,
     ): PrivateMessageResponse
 
     /**
@@ -76,7 +77,7 @@ interface HttpService {
     @GET("user/playlist")
     suspend fun getUserPlaylistList(
         @Query("uid") userId: Long,
-        @Query("limit") limit: Int = 1000
+        @Query("limit") limit: Int = 1000,
     ): UserPlaylistResponse
 
     /**
@@ -124,7 +125,7 @@ interface HttpService {
         @Query("sortType") sortType: Int,
         @Query("pageSize") pageSize: Int,
         @Query("pageNo") pageNo: Int,
-        @Query("cursor") cursor: Long?
+        @Query("cursor") cursor: Long?,
     ): CommentsResponse
 
 
@@ -140,7 +141,7 @@ interface HttpService {
         @Query("type") type: Int,
         @Query("parentCommentId") parentCommentId: Long,
         @Query("limit") limit: Int,
-        @Query("time") time: Long
+        @Query("time") time: Long,
     ): CommentsResponse
 
     /**
@@ -151,7 +152,7 @@ interface HttpService {
         @Query("id") id: Long,
         @Query("cid") commentId: Long,
         @Query("type") type: Int,
-        @Query("t") like: Int
+        @Query("t") like: Int,
     ): CodeResponse
 
     /**
@@ -168,7 +169,7 @@ interface HttpService {
         @Query("type") type: Int,
         @Query("id") id: Long,
         @Query("content") content: String,
-        @Query("commentId") commentId: Long? = null
+        @Query("commentId") commentId: Long? = null,
     ): CodeResponse
 
 
@@ -179,7 +180,7 @@ interface HttpService {
     suspend fun deleteComment(
         @Query("type") type: Int,
         @Query("id") id: Long,
-        @Query("commentId") commentId: Long
+        @Query("commentId") commentId: Long,
     )
 
     /**
@@ -189,7 +190,7 @@ interface HttpService {
     suspend fun getUserFollows(
         @Query("uid") userId: Long,
         @Query("limit") limit: Int,
-        @Query("offset") offset: Int
+        @Query("offset") offset: Int,
     ): UserFollowsResponse
 
     /***
@@ -199,7 +200,7 @@ interface HttpService {
     suspend fun sendPlaylistToUsers(
         @Query("user_ids") users: String,
         @Query("playlist") playlistId: Long,
-        @Query("msg") content: String
+        @Query("msg") content: String,
     ): CodeResponse
 
     /**
@@ -209,7 +210,7 @@ interface HttpService {
     suspend fun sendAlbumToUsers(
         @Query("user_ids") users: String,
         @Query("id") albumId: Long,
-        @Query("msg") content: String
+        @Query("msg") content: String,
     ): CodeResponse
 
     /**
@@ -219,7 +220,7 @@ interface HttpService {
     suspend fun sendSongToUsers(
         @Query("user_ids") users: String,
         @Query("id") albumId: Long,
-        @Query("msg") content: String
+        @Query("msg") content: String,
     ): CodeResponse
 
     /**
@@ -229,7 +230,7 @@ interface HttpService {
     suspend fun playlistSubscribers(
         @Query("id") id: Long,
         @Query("offset") offset: Int,
-        @Query("limit") limit: Int
+        @Query("limit") limit: Int,
     ): PlaylistSubscribersResponse
 
     /**
@@ -239,7 +240,7 @@ interface HttpService {
     @GET("follow")
     suspend fun followUser(
         @Query("id") id: Long,
-        @Query("t") action: Int
+        @Query("t") action: Int,
     ): CodeResponse
 
     /**
@@ -247,7 +248,7 @@ interface HttpService {
      */
     @GET("album")
     suspend fun getAlbumDetail(
-        @Query("id") id: Long
+        @Query("id") id: Long,
     ): AlbumResponse
 
 
@@ -256,7 +257,7 @@ interface HttpService {
      */
     @GET("album/detail/dynamic")
     suspend fun getAlbumDynamic(
-        @Query("id") id: Long
+        @Query("id") id: Long,
     ): AlbumDynamicResponse
 
     /**
@@ -266,7 +267,7 @@ interface HttpService {
     suspend fun addOrRemoveSongsToPlaylist(
         @Query("op") option: String,
         @Query("pid") playlistId: Long,
-        @Query("tracks") tracks: String
+        @Query("tracks") tracks: String,
     )
 
     /**
@@ -276,7 +277,7 @@ interface HttpService {
     suspend fun getTopPlaylist(
         @Query("cat") category: String? = null,
         @Query("limit") limit: Int,
-        @Query("offset") offset: Int
+        @Query("offset") offset: Int,
     ): PlaylistTopResponse
 
     /**
@@ -298,7 +299,7 @@ interface HttpService {
     suspend fun getHighQualityPlaylists(
         @Query("cat") category: String?,
         @Query("limit") limit: Int = 50,
-        @Query("before") before: Long? = null
+        @Query("before") before: Long? = null,
     ): HighQualityPlaylistsResponse
 
     /**
@@ -308,7 +309,7 @@ interface HttpService {
     @GET("playlist/subscribe")
     suspend fun subscribePlaylist(
         @Query("id") id: Long,
-        @Query("t") type: Int
+        @Query("t") type: Int,
     ): CodeResponse
 
     /**
@@ -317,7 +318,7 @@ interface HttpService {
     @GET("song/url/v1")
     suspend fun getSongUrl(
         @Query("id") id: Long,
-        @Query("level") level: String = "jymaster"
+        @Query("level") level: String = "jymaster",
     ): MusicUrlResponse
 
     /**
@@ -367,7 +368,7 @@ interface HttpService {
     suspend fun getNewAlbumList(
         @Query("area") area: String,
         @Query("limit") limit: Int,
-        @Query("offset") offset: Int
+        @Query("offset") offset: Int,
     ): NewAlbumListResponse
 
     /**
@@ -380,7 +381,7 @@ interface HttpService {
         @Query("type") type: Int,
         @Query("area") area: Int,
         @Query("limit") limit: Int,
-        @Query("offset") offset: Int
+        @Query("offset") offset: Int,
     ): ArtistListResponse
 
     /**
@@ -401,7 +402,7 @@ interface HttpService {
     @GET("artist/album")
     suspend fun getArtistAlbums(
         @Query("id") artistId: Long,
-        @Query("limit") limit: Int = 1000
+        @Query("limit") limit: Int = 1000,
     ): ArtistAlbumResponse
 
     /**
@@ -409,7 +410,7 @@ interface HttpService {
      */
     @GET("/artist/mv")
     suspend fun getArtistMv(
-        @Query("id") artistId: Long, @Query("limit") limit: Int = 1000
+        @Query("id") artistId: Long, @Query("limit") limit: Int = 1000,
     ): ArtistMvResponse
 
     /**

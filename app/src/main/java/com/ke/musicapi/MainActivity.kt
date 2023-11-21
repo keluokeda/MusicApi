@@ -15,7 +15,7 @@ import com.ke.musicapi.ui.theme.MusicApiTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
         setContent {
             MusicApiTheme {
                 // A surface container using the 'background' color from the theme
