@@ -72,7 +72,9 @@ interface HttpService {
     @GET("msg/private")
     suspend fun getPrivateMessageList(
         @Query("limit") limit: Int = 1000,
-    ): PrivateMessageResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): PrivateMessageResponse
 
     /**
      * 获取用户歌单列表
@@ -88,32 +90,42 @@ interface HttpService {
      * 获取歌单详情
      */
     @GET("playlist/detail")
-    suspend fun getPlaylistDetail(@Query("id") id: Long): PlaylistDetailResponse
+    suspend fun getPlaylistDetail(
+        @Query("id") id: Long, @Query("cookie") cookie: String? = null,
+    ): PlaylistDetailResponse
 
     /**
      * 获取歌单歌曲
      */
     @GET("/playlist/track/all")
-    suspend fun getPlaylistTracks(@Query("id") id: Long): PlaylistTracksResponse
+    suspend fun getPlaylistTracks(
+        @Query("id") id: Long, @Query("cookie") cookie: String? = null,
+    ): PlaylistTracksResponse
 
     /**
      * 获取歌单动态信息
      */
     @GET("playlist/detail/dynamic")
-    suspend fun getPlaylistDetailDynamic(@Query("id") id: Long): PlaylistDynamicResponse
+    suspend fun getPlaylistDetailDynamic(
+        @Query("id") id: Long, @Query("cookie") cookie: String? = null,
+    ): PlaylistDynamicResponse
 
 
     /**
      * 创建歌单
      */
     @GET("playlist/create")
-    suspend fun createPlaylist(@Query("name") name: String): CodeResponse
+    suspend fun createPlaylist(
+        @Query("name") name: String, @Query("cookie") cookie: String? = null,
+    ): CodeResponse
 
     /**
      * 删除歌单
      */
     @GET("playlist/delete")
-    suspend fun deletePlaylist(@Query("id") id: Long)
+    suspend fun deletePlaylist(
+        @Query("id") id: Long, @Query("cookie") cookie: String? = null,
+    )
 
     /**
      * 获取资源评论
@@ -130,7 +142,9 @@ interface HttpService {
         @Query("pageSize") pageSize: Int,
         @Query("pageNo") pageNo: Int,
         @Query("cursor") cursor: Long?,
-    ): CommentsResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): CommentsResponse
 
 
     /**
@@ -146,7 +160,9 @@ interface HttpService {
         @Query("parentCommentId") parentCommentId: Long,
         @Query("limit") limit: Int,
         @Query("time") time: Long,
-    ): CommentsResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): CommentsResponse
 
     /**
      * 给评论点赞
@@ -157,7 +173,9 @@ interface HttpService {
         @Query("cid") commentId: Long,
         @Query("type") type: Int,
         @Query("t") like: Int,
-    ): CodeResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): CodeResponse
 
     /**
      * 发送评论
@@ -174,7 +192,9 @@ interface HttpService {
         @Query("id") id: Long,
         @Query("content") content: String,
         @Query("commentId") commentId: Long? = null,
-    ): CodeResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): CodeResponse
 
 
     /**
@@ -185,7 +205,9 @@ interface HttpService {
         @Query("type") type: Int,
         @Query("id") id: Long,
         @Query("commentId") commentId: Long,
-    )
+        @Query("cookie") cookie: String? = null,
+
+        )
 
     /**
      * 获取某个用户关注的人
@@ -195,7 +217,9 @@ interface HttpService {
         @Query("uid") userId: Long,
         @Query("limit") limit: Int,
         @Query("offset") offset: Int,
-    ): UserFollowsResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): UserFollowsResponse
 
     /***
      * 发送歌单给用户
@@ -205,7 +229,9 @@ interface HttpService {
         @Query("user_ids") users: String,
         @Query("playlist") playlistId: Long,
         @Query("msg") content: String,
-    ): CodeResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): CodeResponse
 
     /**
      * 分享专辑给用户
@@ -215,7 +241,9 @@ interface HttpService {
         @Query("user_ids") users: String,
         @Query("id") albumId: Long,
         @Query("msg") content: String,
-    ): CodeResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): CodeResponse
 
     /**
      * 分享歌曲给用户
@@ -225,7 +253,9 @@ interface HttpService {
         @Query("user_ids") users: String,
         @Query("id") albumId: Long,
         @Query("msg") content: String,
-    ): CodeResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): CodeResponse
 
     /**
      * 歌单订阅者
@@ -235,7 +265,9 @@ interface HttpService {
         @Query("id") id: Long,
         @Query("offset") offset: Int,
         @Query("limit") limit: Int,
-    ): PlaylistSubscribersResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): PlaylistSubscribersResponse
 
     /**
      * 关注用户
@@ -245,7 +277,9 @@ interface HttpService {
     suspend fun followUser(
         @Query("id") id: Long,
         @Query("t") action: Int,
-    ): CodeResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): CodeResponse
 
     /**
      * 获取专辑信息
@@ -253,7 +287,9 @@ interface HttpService {
     @GET("album")
     suspend fun getAlbumDetail(
         @Query("id") id: Long,
-    ): AlbumResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): AlbumResponse
 
 
     /**
@@ -262,7 +298,9 @@ interface HttpService {
     @GET("album/detail/dynamic")
     suspend fun getAlbumDynamic(
         @Query("id") id: Long,
-    ): AlbumDynamicResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): AlbumDynamicResponse
 
     /**
      * 添加或删除歌曲到歌单
@@ -272,7 +310,9 @@ interface HttpService {
         @Query("op") option: String,
         @Query("pid") playlistId: Long,
         @Query("tracks") tracks: String,
-    )
+        @Query("cookie") cookie: String? = null,
+
+        )
 
     /**
      *网友精选碟
@@ -282,19 +322,26 @@ interface HttpService {
         @Query("cat") category: String? = null,
         @Query("limit") limit: Int,
         @Query("offset") offset: Int,
-    ): PlaylistTopResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): PlaylistTopResponse
 
     /**
      * 歌单分类
      */
     @GET("playlist/catlist")
-    suspend fun getPlaylistCategory(): PlaylistCategoryResponse
+    suspend fun getPlaylistCategory(
+        @Query("cookie") cookie: String? = null,
+
+        ): PlaylistCategoryResponse
 
     /**
      * 精品歌单标签列表
      */
     @GET("playlist/highquality/tags")
-    suspend fun getPlaylistTags(): PlaylistTagsResponse
+    suspend fun getPlaylistTags(
+        @Query("cookie") cookie: String? = null,
+    ): PlaylistTagsResponse
 
     /**
      * 精品歌单列表
@@ -304,7 +351,9 @@ interface HttpService {
         @Query("cat") category: String?,
         @Query("limit") limit: Int = 50,
         @Query("before") before: Long? = null,
-    ): HighQualityPlaylistsResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): HighQualityPlaylistsResponse
 
     /**
      * 收藏或取消收藏歌单
@@ -314,7 +363,9 @@ interface HttpService {
     suspend fun subscribePlaylist(
         @Query("id") id: Long,
         @Query("t") type: Int,
-    ): CodeResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): CodeResponse
 
     /**
      * 获取歌曲播放地址
@@ -323,7 +374,9 @@ interface HttpService {
     suspend fun getSongUrl(
         @Query("id") id: Long,
         @Query("level") level: String = "jymaster",
-    ): MusicUrlResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): MusicUrlResponse
 
     /**
      * 获取歌曲详情
@@ -331,7 +384,9 @@ interface HttpService {
     @GET("song/detail")
     suspend fun getSongDetail(
         @Query("ids") id: Long,
-    ): SongDetailResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): SongDetailResponse
 
 
     /**
@@ -340,7 +395,9 @@ interface HttpService {
     @GET("song/detail")
     suspend fun getSongsDetail(
         @Query("ids") ids: String,
-    ): SongDetailResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): SongDetailResponse
 
 
     /**
@@ -348,20 +405,29 @@ interface HttpService {
      * @param action 1表示收藏 0表示取消收藏
      */
     @GET("album/sub")
-    suspend fun collectAlbum(@Query("id") albumId: Long, @Query("t") action: Int)
+    suspend fun collectAlbum(
+        @Query("id") albumId: Long,
+        @Query("t") action: Int,
+        @Query("cookie") cookie: String? = null,
+    )
 
 
     /**
      * 每日推荐
      */
     @GET("recommend/songs")
-    suspend fun recommendSongs(): RecommendSongsResponse
+    suspend fun recommendSongs(
+        @Query("cookie") cookie: String? = null,
+
+        ): RecommendSongsResponse
 
     /**
      * 用户详情
      */
     @GET("user/detail")
-    suspend fun getUserDetail(@Query("uid") userId: Long): UserDetailResponse
+    suspend fun getUserDetail(
+        @Query("uid") userId: Long, @Query("cookie") cookie: String? = null,
+    ): UserDetailResponse
 
 
     /**
@@ -373,7 +439,9 @@ interface HttpService {
         @Query("area") area: String,
         @Query("limit") limit: Int,
         @Query("offset") offset: Int,
-    ): NewAlbumListResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): NewAlbumListResponse
 
     /**
      * 获取歌手列表
@@ -386,19 +454,25 @@ interface HttpService {
         @Query("area") area: Int,
         @Query("limit") limit: Int,
         @Query("offset") offset: Int,
-    ): ArtistListResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): ArtistListResponse
 
     /**
      * 歌手描述
      */
     @GET("artist/desc")
-    suspend fun getArtistDesc(@Query("id") id: Long): ArtistDescResponse
+    suspend fun getArtistDesc(
+        @Query("id") id: Long, @Query("cookie") cookie: String? = null,
+    ): ArtistDescResponse
 
     /**
      * 获取歌手信息和热门歌曲
      */
     @GET("artists")
-    suspend fun getArtists(@Query("id") artistId: Long): ArtistsResponse
+    suspend fun getArtists(
+        @Query("id") artistId: Long, @Query("cookie") cookie: String? = null,
+    ): ArtistsResponse
 
     /**
      * 获取歌手专辑
@@ -407,15 +481,20 @@ interface HttpService {
     suspend fun getArtistAlbums(
         @Query("id") artistId: Long,
         @Query("limit") limit: Int = 1000,
-    ): ArtistAlbumResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): ArtistAlbumResponse
 
     /**
      * 歌手mv
      */
     @GET("/artist/mv")
     suspend fun getArtistMv(
-        @Query("id") artistId: Long, @Query("limit") limit: Int = 1000,
-    ): ArtistMvResponse
+        @Query("id") artistId: Long,
+        @Query("limit") limit: Int = 1000,
+        @Query("cookie") cookie: String? = null,
+
+        ): ArtistMvResponse
 
     /**
      * 获取全部mv
@@ -426,7 +505,9 @@ interface HttpService {
         @Query("area") area: String?,
         @Query("limit") limit: Int,
         @Query("offset") offset: Int,
-    ): MvAllResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): MvAllResponse
 
     /**
      * 获取歌曲歌词
@@ -434,7 +515,9 @@ interface HttpService {
     @GET("lyric")
     suspend fun getSongLrc(
         @Query("id") songId: Long,
-    ): LrcResponse
+        @Query("cookie") cookie: String? = null,
+
+        ): LrcResponse
 
     /**
      * 关注歌手
@@ -444,5 +527,7 @@ interface HttpService {
     suspend fun followArtist(
         @Query("id") artistId: Long,
         @Query("t") t: Int = 1,
-    )
+        @Query("cookie") cookie: String? = null,
+
+        )
 }
