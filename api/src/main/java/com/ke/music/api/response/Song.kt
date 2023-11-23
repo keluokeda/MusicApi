@@ -10,15 +10,12 @@ data class Song(
     @Json(name = "al")
     val album: Album,
     @Json(name = "ar")
-    val singers: List<Singer>,
+    val artists: List<Singer>,
     /**
      * mv的id，如果是0表示没有
      */
-    val mv: Long
-) {
-    val subTitle: String
-        get() = "${singers.firstOrNull()?.name}-${album.name}"
-}
+    val mv: Long,
+)
 
 /**
  * 专辑
@@ -28,7 +25,7 @@ data class Album(
     val id: Long,
     val name: String,
     @Json(name = "picUrl")
-    val imageUrl: String
+    val imageUrl: String,
 )
 
 /**
@@ -37,5 +34,5 @@ data class Album(
 @JsonClass(generateAdapter = true)
 data class Singer(
     val id: Long,
-    val name: String
+    val name: String,
 )
