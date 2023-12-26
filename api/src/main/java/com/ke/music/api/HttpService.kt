@@ -27,6 +27,7 @@ import com.ke.music.api.response.PlaylistTopResponse
 import com.ke.music.api.response.PlaylistTracksResponse
 import com.ke.music.api.response.PrivateMessageResponse
 import com.ke.music.api.response.RecommendSongsResponse
+import com.ke.music.api.response.SimiArtistResponse
 import com.ke.music.api.response.SongDetailResponse
 import com.ke.music.api.response.UserDetailResponse
 import com.ke.music.api.response.UserFollowsResponse
@@ -473,6 +474,13 @@ interface HttpService {
     suspend fun getArtists(
         @Query("id") artistId: Long, @Query("cookie") cookie: String? = null,
     ): ArtistsResponse
+
+    /**
+     * 根据歌手id查询相似歌手
+     */
+    suspend fun getSimiArtist(
+        @Query("id") artistId: Long, @Query("cookie") cookie: String? = null,
+    ): SimiArtistResponse
 
     /**
      * 获取歌手专辑
