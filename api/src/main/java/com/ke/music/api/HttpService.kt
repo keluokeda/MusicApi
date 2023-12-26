@@ -478,6 +478,7 @@ interface HttpService {
     /**
      * 根据歌手id查询相似歌手
      */
+    @GET("simi/artist")
     suspend fun getSimiArtist(
         @Query("id") artistId: Long, @Query("cookie") cookie: String? = null,
     ): SimiArtistResponse
